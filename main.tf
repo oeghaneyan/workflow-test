@@ -45,7 +45,8 @@ resource "random_id" "secondary" {
   
   byte_length = 12
   keepers = {
-    primary_id = random_id.primary.hex
+    primary_id  = random_id.primary.hex
+    environment = var.environment
   }
 }
 
@@ -56,7 +57,8 @@ resource "random_string" "app_name" {
   special = false
   upper   = true
   keepers = {
-    suffix = random_string.name_suffix.result
+    suffix      = random_string.name_suffix.result
+    environment = var.environment
   }
 }
 
@@ -96,8 +98,9 @@ resource "random_string" "database_name" {
   special = false
   upper   = false
   keepers = {
-    app_name = random_string.app_name.result
-    port     = random_integer.port.result
+    app_name    = random_string.app_name.result
+    port        = random_integer.port.result
+    environment = var.environment
   }
 }
 

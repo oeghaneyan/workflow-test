@@ -1,3 +1,8 @@
+output "environment" {
+  description = "Environment name used for this deployment"
+  value       = var.environment
+}
+
 output "primary_id" {
   description = "Primary random ID"
   value       = random_id.primary.hex

@@ -41,9 +41,29 @@ The configuration creates:
    - `random_string.session_token`
    - `random_integer.timeout`
 
+## Required Environment Variable
+
+The configuration requires the `environment` variable to be set as an environment variable. This variable has no default value, so runs will fail if it's not provided.
+
+See `variables.tf.example` for reference on how to set the environment variable.
+
+**You must set it as an environment variable using the `TF_VAR_` prefix:**
+
+```bash
+export TF_VAR_environment=dev
+```
+
+Or for a single command:
+```bash
+TF_VAR_environment=dev terraform apply
+```
+
 ## Usage
 
 ```bash
+# Set the required environment variable
+export TF_VAR_environment=dev
+
 # Initialize Terraform
 terraform init
 
