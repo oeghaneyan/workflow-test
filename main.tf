@@ -10,22 +10,18 @@ terraform {
       source  = "hashicorp/time"
       version = "~> 0.9"
     }
-    external = {
-      source  = "hashicorp/external"
-      version = "~> 2.3"
-    }
   }
 }
 
-# Read environment variable directly (similar to AWS credentials)
-# Usage: export ENVIRONMENT=dev
-# This will fail if ENVIRONMENT is not set
-data "external" "environment" {
-  program = ["sh", "-c", "if [ -z \"$ENVIRONMENT\" ]; then echo '{\"error\":\"ENVIRONMENT variable is not set\"}' >&2; exit 1; fi; echo '{\"value\":\"'$ENVIRONMENT'\"}'"]
+# Required environment variable - set via TF_VAR_environment (standard Terraform way)
+# Usage: export TF_VAR_environment=dev
+variable "environment" {
+  description = "Environment name (e.g., dev, staging, prod). Set via TF_VAR_environment environment variable."
+  type        = string
 }
 
 locals {
-  environment = data.external.environment.result.value
+  environment = var.environment
 }
 
 # Random resources - no dependencies
