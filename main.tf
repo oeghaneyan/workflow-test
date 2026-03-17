@@ -13,6 +13,13 @@ terraform {
   }
 }
 
+# Read environment variable directly (similar to AWS credentials)
+# Usage: export ENVIRONMENT=dev
+# This will fail if ENVIRONMENT is not set
+locals {
+  environment = env("ENVIRONMENT")
+}
+
 # Random resources - no dependencies
 resource "random_id" "primary" {
   byte_length = 8
@@ -46,7 +53,7 @@ resource "random_id" "secondary" {
   byte_length = 12
   keepers = {
     primary_id  = random_id.primary.hex
-    environment = var.environment
+    environment = local.environment
   }
 }
 
@@ -58,7 +65,7 @@ resource "random_string" "app_name" {
   upper   = true
   keepers = {
     suffix      = random_string.name_suffix.result
-    environment = var.environment
+    environment = local.environment
   }
 }
 
@@ -100,7 +107,7 @@ resource "random_string" "database_name" {
   keepers = {
     app_name    = random_string.app_name.result
     port        = random_integer.port.result
-    environment = var.environment
+    environment = local.environment
   }
 }
 

@@ -1,6 +1,6 @@
 output "environment" {
   description = "Environment name used for this deployment"
-  value       = var.environment
+  value       = local.environment
 }
 
 output "primary_id" {

@@ -43,26 +43,24 @@ The configuration creates:
 
 ## Required Environment Variable
 
-The configuration requires the `environment` variable to be set as an environment variable. This variable has no default value, so runs will fail if it's not provided.
+The configuration requires the `ENVIRONMENT` environment variable to be set. This is read directly from the environment (similar to AWS credentials like `AWS_ACCESS_KEY_ID`). Runs will fail if it's not provided.
 
-See `variables.tf.example` for reference on how to set the environment variable.
-
-**You must set it as an environment variable using the `TF_VAR_` prefix:**
+**You must set it as an environment variable:**
 
 ```bash
-export TF_VAR_environment=dev
+export ENVIRONMENT=dev
 ```
 
 Or for a single command:
 ```bash
-TF_VAR_environment=dev terraform apply
+ENVIRONMENT=dev terraform apply
 ```
 
 ## Usage
 
 ```bash
 # Set the required environment variable
-export TF_VAR_environment=dev
+export ENVIRONMENT=dev
 
 # Initialize Terraform
 terraform init
